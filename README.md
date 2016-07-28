@@ -1,2 +1,2 @@
 # TmoleHelpers
-Python classes to help parsing TURBOMOLE&#169; output.
+Python classes for TURBOMOLE&#169; output parsing.
