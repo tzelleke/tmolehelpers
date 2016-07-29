@@ -15,6 +15,10 @@ class DSCF(object):
     def _parse(self):
         with open(os.path.join(self.directory, self.filename)) as f:
             dscf_out = f.read()
+        self._converged(dscf_out)
         for label, regex in DSCF._re.items():
             match = regex.search(dscf_out)
             self.__dict__[label] = float(match.group(1)) if match else None
+
+    def _converged(self, output):
+        self.converged = not bool(re.search('ATTENTION: dscf did not converge!'))
