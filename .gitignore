@@ -1,6 +1,6 @@
 .idea
 .pyc
 *.egg-info
-*.ipynb
 .ipynb_checkpoints
 __pycache__
+venv
