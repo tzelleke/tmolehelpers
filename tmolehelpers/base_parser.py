@@ -25,3 +25,8 @@ class BaseParser(object):
                     skip -= 1
                 else:
                     return line
+
+    def _chunks(self, sequence, n):
+        """Yield successive n-sized chunks from sequence."""
+        for i in range(0, len(sequence), n):
+            yield sequence[i:i + n]
