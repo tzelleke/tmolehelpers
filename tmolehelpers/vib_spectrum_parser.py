@@ -1,6 +1,5 @@
 from collections import defaultdict
 from functools import reduce
-from io import StringIO
 from operator import add
 
 import pandas as pd
@@ -25,20 +24,20 @@ class VibSpectrumParser(BaseParser):
     }
 
     def __init__(self, raw, natoms):
-        self.raw = StringIO(raw)
+        super().__init__(raw)
         self.natoms = natoms
         self.nmodes = natoms * 3
         self._data = None
-        self._parse('_data')
-        print(self._data)
+        self._parse()
 
-    def _parse(self, datastore_key):
+    def _parse(self):
         NCOLS = 6
+        self.raw.seek(0)
         self._scan_forward(VibSpectrumParser._anchors['MAIN'])
         datastore = defaultdict(list)
         for chunk in self._chunks(range(self.nmodes), NCOLS):
             self._parse_block(chunk, datastore)
-        self.__dict__[datastore_key] = pd.DataFrame(datastore)
+        self._data = pd.DataFrame(datastore)
 
     def _parse_block(self, mode_indices, datastore):
         self._scan_forward(VibSpectrumParser._anchors['MODE'], before_match=True)

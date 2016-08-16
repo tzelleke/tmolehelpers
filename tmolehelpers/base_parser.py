@@ -3,7 +3,7 @@ from io import StringIO
 
 class BaseParser(object):
     def __init__(self, raw):
-        self.raw = StringIO(raw)
+        self.raw = raw
 
     def _scan_forward(self, anchor, before_match=False):
         loc = self.raw.tell()
